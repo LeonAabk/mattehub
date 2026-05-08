@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Kalkulator - Alt-i-ett Profesjonell</title>
+    <link rel="manifest" href='data:application/manifest+json,{"name":"Total Kalkulator","short_name":"TotalCalc","start_url":".","display":"standalone","background_color":"#0f0f13","theme_color":"#00d2ff","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/2344/2344132.png","sizes":"512x512","type":"image/png"}]}'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="toast">Kopiert!</div>
+
+    <header class="top-bar">
+        <div class="logo" onclick="app.showFolderView()">
+            <span style="font-size:1.8rem">🧮</span> TOTAL KALKULATOR
+        </div>
+        <div class="search-container" id="desktopSearch">
+            <input type="text" id="searchInput" placeholder="Søk i over 60 kalkulatorer..." oninput="app.handleSearch()">
+        </div>
+        <div class="nav-actions">
+            <button class="icon-btn" onclick="app.toggleTheme()" title="Bytt Tema">🌓</button>
+            <button class="icon-btn menu-toggle" onclick="app.toggleSidebar()" title="Widgets">📈</button>
+        </div>
+    </header>
+
+    <div id="app">
+        <main class="main-content" id="mainContainer">
+            </main>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="glass-card">
+                <div class="widget-title">🔢 Rask Kalkulator</div>
+                <input type="text" id="stdCalcDisplay" disabled style="width:100%; padding:15px; font-size:1.5rem; text-align:right; border-radius:10px; border:none; background:rgba(0,0,0,0.3); color:white; font-weight:bold;">
+                <div class="std-calc-grid">
+                    <button class="std-btn" onclick="app.stdCalc('7')">7</button>
+                    <button class="std-btn" onclick="app.stdCalc('8')">8</button>
+                    <button class="std-btn" onclick="app.stdCalc('9')">9</button>
+                    <button class="std-btn op" onclick="app.stdCalc('/')">÷</button>
+                    <button class="std-btn" onclick="app.stdCalc('4')">4</button>
+                    <button class="std-btn" onclick="app.stdCalc('5')">5</button>
+                    <button class="std-btn" onclick="app.stdCalc('6')">6</button>
+                    <button class="std-btn op" onclick="app.stdCalc('*')">×</button>
+                    <button class="std-btn" onclick="app.stdCalc('1')">1</button>
+                    <button class="std-btn" onclick="app.stdCalc('2')">2</button>
+                    <button class="std-btn" onclick="app.stdCalc('3')">3</button>
+                    <button class="std-btn op" onclick="app.stdCalc('-')">-</button>
+                    <button class="std-btn" onclick="app.stdCalc('C')" style="color:var(--danger)">C</button>
+                    <button class="std-btn" onclick="app.stdCalc('0')">0</button>
+                    <button class="std-btn" onclick="app.stdCalc('.')">.</button>
+                    <button class="std-btn op" onclick="app.stdCalc('+')">+</button>
+                    <button class="std-btn eq" onclick="app.stdCalc('=')">=</button>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="widget-title">
+                    🕒 Historikk
+                    <button class="icon-btn" style="width:25px; height:25px; font-size:0.8rem" onclick="app.clearHistory()" title="Slett historikk">🗑️</button>
+                </div>
+                <div id="historyList" style="display:flex; flex-direction:column; max-height: 200px; overflow-y:auto; padding-right:5px;">
+                    <p style="font-size: 0.85rem; color: var(--text-dim)">Ingen historikk ennå.</p>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="widget-title">📈 Hurtig-graf</div>
+                <div class="widget-canvas-container">
+                    <canvas id="quickGraphCanvas"></canvas>
+                </div>
+                <div class="input-group" style="margin-bottom: 0;">
+                    <input type="text" id="quickFunc" value="sin(x)" oninput="app.drawQuickGraph()" placeholder="Skriv funksjon, f.eks. x*x">
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="widget-title">📐 Enhetssirkel</div>
+                <div class="widget-canvas-container">
+                    <canvas id="unitCircleCanvas"></canvas>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="range" id="unitAngleRange" min="0" max="360" value="45" oninput="document.getElementById('unitAngle').value = this.value; app.drawUnitCircle()" style="flex: 1; accent-color: var(--primary);">
+                    <input type="number" id="unitAngle" value="45" oninput="document.getElementById('unitAngleRange').value = this.value; app.drawUnitCircle()" style="width: 70px; padding: 8px; background: rgba(0,0,0,0.3); border:1px solid var(--glass-border); color:white; border-radius:8px; text-align:center;">
+                </div>
+                <div class="widget-data" id="unitResults" style="margin-top: 15px;">
+                    <span>Sin(v): <b>0.707</b></span>
+                    <span>Cos(v): <b>0.707</b></span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="widget-title">🏹 Prosjektilbane</div>
+                <div class="widget-canvas-container">
+                    <canvas id="projectileCanvas"></canvas>
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <div style="flex: 1;">
+                        <label style="font-size: 0.7rem; color: var(--text-dim); font-weight:600; text-transform:uppercase;">Fart (m/s)</label>
+                        <input type="number" id="projV0" value="20" oninput="app.drawProjectile()" style="width: 100%; padding: 8px; background: rgba(0,0,0,0.3); border:1px solid var(--glass-border); color:white; border-radius:8px;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="font-size: 0.7rem; color: var(--text-dim); font-weight:600; text-transform:uppercase;">Vinkel (°)</label>
+                        <input type="number" id="projAngle" value="45" oninput="app.drawProjectile()" style="width: 100%; padding: 8px; background: rgba(0,0,0,0.3); border:1px solid var(--glass-border); color:white; border-radius:8px;">
+                    </div>
+                </div>
+                <div class="widget-data" id="projResults">
+                    <span>H-maks: <b>10.2m</b></span>
+                    <span>L-maks: <b>40.8m</b></span>
+                </div>
+            </div>
+            
+            <div style="height:30px;"></div> </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
