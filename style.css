@@ -54,6 +54,9 @@ body {
     height: 100vh;
     max-width: 1800px;
     margin: 0 auto;
+    /* Skyver alt innhold ned så det ikke forsvinner under toppmenyen, 
+       uten at det bryter høyden på skjermen */
+    padding-top: 75px; 
 }
 
 /* Top Navigation Bar */
@@ -99,17 +102,23 @@ body {
 
 /* Main Content Area */
 .main-content {
-    flex: 1; margin-top: 75px; padding: 40px;
-    overflow-y: auto; scroll-behavior: smooth;
+    flex: 1; 
+    padding: 40px;
+    overflow-y: auto; 
+    scroll-behavior: smooth;
 }
 
 /* Sidebar Widgets */
 .sidebar {
     width: 420px; 
-    flex-shrink: 0; /* Denne linjen forhindrer at panelet og boksene blir skvist */
-    margin-top: 75px; padding: 30px;
-    background: rgba(0, 0, 0, 0.1); border-left: 1px solid var(--glass-border);
-    overflow-y: auto; display: flex; flex-direction: column; gap: 30px;
+    flex-shrink: 0;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.1); 
+    border-left: 1px solid var(--glass-border);
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 30px;
     transition: var(--transition);
 }
 
@@ -216,7 +225,7 @@ body {
     .menu-toggle { display: flex; }
     .main-content { padding: 20px; }
     .folder-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-    .search-container { display: none; } /* Hide search on top for very small screens, could move it */
+    .search-container { display: none; }
 }
 
 ::-webkit-scrollbar { width: 8px; }
