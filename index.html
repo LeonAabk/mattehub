@@ -109,7 +109,30 @@
                     <span>L-maks: <b>40.8m</b></span>
                 </div>
             </div>
-            
+            <div class="glass-card">
+                <div class="widget-title">📊 Normalfordeling</div>
+                <div class="widget-canvas-container">
+                    <canvas id="statsCanvas"></canvas>
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <div style="flex: 1;">
+                        <label style="font-size: 0.7rem; color: var(--text-dim); font-weight:600; text-transform:uppercase;">Gj.snitt (μ)</label>
+                        <input type="number" id="statsMean" value="100" oninput="app.drawStats()" style="width: 100%; padding: 8px; background: rgba(0,0,0,0.3); border:1px solid var(--glass-border); color:white; border-radius:8px;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="font-size: 0.7rem; color: var(--text-dim); font-weight:600; text-transform:uppercase;">Avvik (σ)</label>
+                        <input type="number" id="statsStd" value="15" oninput="app.drawStats()" style="width: 100%; padding: 8px; background: rgba(0,0,0,0.3); border:1px solid var(--glass-border); color:white; border-radius:8px;">
+                    </div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-size: 0.7rem; color: var(--text-dim); font-weight:600; text-transform:uppercase;">Finn P(X < x) for x =</label>
+                    <input type="number" id="statsVal" value="100" oninput="app.drawStats()" style="width: 100%; padding: 8px; background: rgba(0,0,0,0.3); border:1px solid var(--glass-border); color:white; border-radius:8px;">
+                </div>
+                <div class="widget-data" id="statsResults">
+                    <span>Z-score: <b>0.00</b></span>
+                    <span>P(X<x): <b>50.0%</b></span>
+                </div>
+            </div>
             <div style="height:30px;"></div> </aside>
     </div>
 
