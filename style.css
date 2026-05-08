@@ -54,8 +54,6 @@ body {
     height: 100vh;
     max-width: 1800px;
     margin: 0 auto;
-    /* Skyver alt innhold ned så det ikke forsvinner under toppmenyen, 
-       uten at det bryter høyden på skjermen */
     padding-top: 75px; 
 }
 
@@ -103,6 +101,7 @@ body {
 /* Main Content Area */
 .main-content {
     flex: 1; 
+    min-width: 0; /* KUN for sikkerhet: Hindrer flex-boksen i å utvide seg forbi skjermen */
     padding: 40px;
     overflow-y: auto; 
     scroll-behavior: smooth;
@@ -111,7 +110,7 @@ body {
 /* Sidebar Widgets */
 .sidebar {
     width: 420px; 
-    flex-shrink: 0;
+    flex-shrink: 0; /* Holder bredden låst */
     padding: 30px;
     background: rgba(0, 0, 0, 0.1); 
     border-left: 1px solid var(--glass-border);
