@@ -105,7 +105,9 @@ body {
 
 /* Sidebar Widgets */
 .sidebar {
-    width: 420px; margin-top: 75px; padding: 30px;
+    width: 420px; 
+    flex-shrink: 0; /* Denne linjen forhindrer at panelet og boksene blir skvist */
+    margin-top: 75px; padding: 30px;
     background: rgba(0, 0, 0, 0.1); border-left: 1px solid var(--glass-border);
     overflow-y: auto; display: flex; flex-direction: column; gap: 30px;
     transition: var(--transition);
